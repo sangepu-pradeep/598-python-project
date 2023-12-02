@@ -2,15 +2,6 @@
 # Django Social Network
 
 A Django 4.0 -based open source social network application.
-## Badges
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/manjurulhoque/django-social-network/blob/master/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/manjurulhoque/django-social-network)](https://github.com/manjurulhoque/django-social-network/issues)
-[![Forks](https://img.shields.io/github/forks/manjurulhoque/django-social-network)](https://github.com/manjurulhoque/django-social-network/fork)
-[![Starts](https://img.shields.io/github/stars/manjurulhoque/django-social-network)](https://github.com/manjurulhoque/django-social-network)
-[![Tweet](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmanjurulhoque%2Fdjango-social-network
-)](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fmanjurulhoque%2Fdjango-social-network
-)
-
 
 ## Features
 
@@ -72,20 +63,6 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 Open up a browser and visit: http://127.0.0.1:8000/ , then you will see the application.
-## Screenshots
-
-<img src="screenshots/register.png" height="300"><img src="screenshots/login.png" height="300"><img src="screenshots/home.png" height="300">
-<img src="screenshots/post.png" height="300"><img src="screenshots/sent-request.png" height="300"><img src="screenshots/editprofile.png" height="300">
-<img src="screenshots/accept.png" height="300"><img src="screenshots/accept2.png" height="300"><img src="screenshots/chat1.png" height="300">
-<img src="screenshots/chat2.png" height="300"><img src="screenshots/chat3.png" height="300">
-
-## Contributing
-
-Contributions are always welcome!
-
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
 
 ## Support
 Show your support by 🌟 the project!!
