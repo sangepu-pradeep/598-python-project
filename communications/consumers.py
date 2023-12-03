@@ -118,28 +118,31 @@ class ChatConsumer(WebsocketConsumer):
 
     # Method called when a WebSocket connection is established
     def connect(self):
-        self.user = self.scope['user']
-        self.friend_name = self.scope['url_route']['kwargs']['friendname']
-        author_user = User.objects.filter(username=self.user.username)[0]
-        friend_user = User.objects.filter(username=self.friend_name)[0]
-        
-        # Creating or retrieving a chat room between users
-        if Room.objects.filter(
-                Q(author=author_user, friend=friend_user) | Q(author=friend_user, friend=author_user)
-        ).exists():
-            self.room = Room.objects.filter(
-                Q(author=author_user, friend=friend_user) | Q(author=friend_user, friend=author_user)
-            )[0]
-        else:
-            self.room = Room.objects.create(author=author_user, friend=friend_user)
-        
-        # Adding the WebSocket consumer to a group
-        self.room_group_name = 'chat_{}_{}'.format(str(self.room.id), str(self.user.id))
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-        )
-        self.accept()
+        try:
+            self.user = self.scope['user']
+            self.friend_name = self.scope['url_route']['kwargs']['friendname']
+            author_user = User.objects.filter(username=self.user.username)[0]
+            friend_user = User.objects.filter(username=self.friend_name)[0]
+            
+            # Creating or retrieving a chat room between users
+            if Room.objects.filter(
+                    Q(author=author_user, friend=friend_user) | Q(author=friend_user, friend=author_user)
+            ).exists():
+                self.room = Room.objects.filter(
+                    Q(author=author_user, friend=friend_user) | Q(author=friend_user, friend=author_user)
+                )[0]
+            else:
+                self.room = Room.objects.create(author=author_user, friend=friend_user)
+            
+            # Adding the WebSocket consumer to a group
+            self.room_group_name = 'chat_{}_{}'.format(str(self.room.id), str(self.user.id))
+            async_to_sync(self.channel_layer.group_add)(
+                self.room_group_name,
+                self.channel_name
+            )
+            self.accept()
+        except:
+            print("exception")
 
     # Method called when a WebSocket connection is closed
     def disconnect(self, close_code):

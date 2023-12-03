@@ -55,11 +55,14 @@ class FriendRequestConsumer(AsyncJsonWebsocketConsumer):
 
     # Function called when a WebSocket connection is established
     async def connect(self):
-        user = self.scope['user']
-        grp = 'all_friend_requests_{}'.format(user.username)  # Group name for friend requests
-        await self.accept()  # Accepting the WebSocket connection
-        await self.channel_layer.group_add(grp, self.channel_name)  # Adding to the group
-        await self.send_all_friend_requests()  # Sending all friend requests to the user
+        try:
+            user = self.scope['user']
+            grp = 'all_friend_requests_{}'.format(user.username)  # Group name for friend requests
+            await self.accept()  # Accepting the WebSocket connection
+            await self.channel_layer.group_add(grp, self.channel_name)  # Adding to the group
+            await self.send_all_friend_requests()  # Sending all friend requests to the user
+        except:
+            print("exception")
 
     # Function called when a WebSocket connection is closed
     async def disconnect(self, close_code):

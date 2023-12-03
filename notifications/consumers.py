@@ -51,11 +51,14 @@ class NotificationConsumer(AsyncJsonWebsocketConsumer):
 
     # Connection established for WebSocket
     async def connect(self):
-        user = self.scope['user']
-        grp = 'comment_like_notifications_{}'.format(user.username)
-        await self.accept()  # Accept the connection
-        await self.channel_layer.group_add(grp, self.channel_name)  # Add user to a specific group
-        await self.send_all_notifications()  # Send all notifications to the user
+        try:
+            user = self.scope['user']
+            grp = 'comment_like_notifications_{}'.format(user.username)
+            await self.accept()  # Accept the connection
+            await self.channel_layer.group_add(grp, self.channel_name)  # Add user to a specific group
+            await self.send_all_notifications()  # Send all notifications to the user
+        except:
+            print("exception")
 
     # Disconnection from WebSocket
     async def disconnect(self, close_code):

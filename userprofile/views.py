@@ -5,6 +5,9 @@ from django.views.generic import DetailView, UpdateView, ListView
 from accounts.models import User
 from userprofile.models import Profile
 
+import pandas as pd # For data processing
+import numpy as np # For linear algebra
+import matplotlib.pyplot as plt # For plotting
 
 
 class TimelineView(DetailView):
@@ -52,7 +55,7 @@ class ProfileEditView(UpdateView):
         profile.save()
         return redirect(reverse_lazy('profile:edit-profile'))
 
-class Profileusersinfo(ListView):
+class Profileusersinfo(DetailView):
     model = Profile
     template_name = "profile/user-info.html"
     context_object_name = "profile"
@@ -60,8 +63,17 @@ class Profileusersinfo(ListView):
     fields = "__all__"
 
     def get_object(self):
-        current_user_friends = self.request.user.friends.values('id')
-        users = User.objects.exclude(id__in=current_user_friends)
-        for i in users:
-            print(i)
-        return "user"
+        current_user_friends = pd.read_csv("row_data.csv")
+        print("satvik")
+        print(current_user_friends.head())
+        data = pd.DataFrame(current_user_friends, columns=['ID','q11'])
+        res=[]
+        for i in data['q11']:
+            res.append(i)
+        fig, ax = plt.subplots(figsize=(12, 2), subplot_kw=dict(aspect="equal"), dpi= 80)
+        labels2 = ['Male', 'Female']
+        sizes2 = [res.count("male"), res.count("female")]
+        plt.pie(sizes2, labels=labels2, autopct='%.0f%%')
+        plt.savefig("gender-Python.png", bbox_inches='tight', dpi=300)
+
+        return "gender-Python.png"

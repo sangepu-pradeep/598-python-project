@@ -105,6 +105,7 @@ friendRequestNotificationSocket.onmessage = function (event) {
     }
 };
 
+console.log(window.location.host);
 
 // like and comment notification
 let likeCommentNotificationSocket = new ReconnectingWebSocket(

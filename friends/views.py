@@ -13,10 +13,6 @@ from core.contants.common import FRIEND_REQUEST_VERB
 from .serializers import NotificationSerializer, FriendshipRequestSerializer
 from .models import FriendshipRequest, Friend, CustomNotification
 
-import pandas as pd # For data processing
-import numpy as np # For linear algebra
-import matplotlib.pyplot as plt # For plotting
-
 # Define a class-based view inheriting LoginRequiredMixin and ListView for finding friends
 class FindFriendsListView(LoginRequiredMixin, ListView):
     model = Friend
